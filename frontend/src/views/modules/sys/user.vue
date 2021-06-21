@@ -10,6 +10,7 @@
         <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
+<!--    表格-->
     <el-table
       :data="dataList"
       border
@@ -58,6 +59,12 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="role"
+        header-align="center"
+        align="center"
+        label="角色">
+      </el-table-column>
+      <el-table-column
         prop="createTime"
         header-align="center"
         align="center"
@@ -76,6 +83,7 @@
         </template>
       </el-table-column>
     </el-table>
+
     <el-pagination
       @size-change="sizeChangeHandle"
       @current-change="currentChangeHandle"
@@ -127,6 +135,7 @@
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
+            console.log(data)
             this.dataList = data.page.list
             this.totalPage = data.page.totalCount
           } else {
