@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shangcheng.psychology.modules.psychology.dao.ArchiveDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.shangcheng.psychology.modules.psychology.entity.ArchiveEntity" id="archiveMap">
+        <result property="archivesId" column="archives_id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="doctorId" column="doctor_id"/>
+        <result property="clientDescription" column="client_description"/>
+        <result property="doctorDescription" column="doctor_description"/>
+        <result property="applyTime" column="apply_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+</mapper>
