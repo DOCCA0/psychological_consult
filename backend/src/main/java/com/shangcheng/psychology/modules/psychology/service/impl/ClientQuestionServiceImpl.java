@@ -1,0 +1,29 @@
+package com.shangcheng.psychology.modules.psychology.service.impl;
+
+import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.shangcheng.psychology.modules.common.utils.PageUtils;
+import com.shangcheng.psychology.modules.common.utils.Query;
+
+import com.shangcheng.psychology.modules.psychology.dao.ClientQuestionDao;
+import com.shangcheng.psychology.modules.psychology.entity.ClientQuestionEntity;
+import com.shangcheng.psychology.modules.psychology.service.ClientQuestionService;
+
+
+@Service("clientQuestionService")
+public class ClientQuestionServiceImpl extends ServiceImpl<ClientQuestionDao, ClientQuestionEntity> implements ClientQuestionService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<ClientQuestionEntity> page = this.page(
+                new Query<ClientQuestionEntity>().getPage(params),
+                new QueryWrapper<ClientQuestionEntity>()
+        );
+
+        return new PageUtils(page);
+    }
+
+}

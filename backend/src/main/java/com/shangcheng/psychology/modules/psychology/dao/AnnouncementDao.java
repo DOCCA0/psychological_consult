@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
- * @date 2021-06-10 11:49:23
+ * @date 2021-06-21 14:30:07
  */
 @Mapper
 public interface AnnouncementDao extends BaseMapper<AnnouncementEntity> {

@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
- * @date 2021-06-10 11:49:23
+ * @date 2021-06-21 14:30:07
  */
 @Data
 @TableName("announcement")
@@ -35,7 +35,7 @@ public class AnnouncementEntity implements Serializable {
 	/**
 	 * 公告的创建者id
 	 */
-	private Integer createrId;
+	private Long createrId;
 	/**
 	 * 公告发布时间
 	 */
@@ -44,5 +44,9 @@ public class AnnouncementEntity implements Serializable {
 	 * 0 不显示，1显示
 	 */
 	private Integer isActive;
+	/**
+	 * 优先级，实现置顶等功能
+	 */
+	private Integer priority;
 
 }

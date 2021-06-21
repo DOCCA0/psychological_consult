@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shangcheng.psychology.modules.psychology.entity.DoctorEntity;
 import com.shangcheng.psychology.modules.psychology.service.DoctorService;
-import com.shangcheng.psychology.common.utils.PageUtils;
-import com.shangcheng.psychology.common.utils.R;
+import com.shangcheng.psychology.modules.common.utils.PageUtils;
+import com.shangcheng.psychology.modules.common.utils.R;
 
 
 
@@ -22,7 +22,7 @@ import com.shangcheng.psychology.common.utils.R;
  *
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
- * @date 2021-06-10 11:49:18
+ * @date 2021-06-21 14:30:07
  */
 @RestController
 @RequestMapping("psychology/doctor")
@@ -45,7 +45,7 @@ public class DoctorController {
      * 信息
      */
     @RequestMapping("/info/{doctorId}")
-    public R info(@PathVariable("doctorId") Integer doctorId){
+    public R info(@PathVariable("doctorId") Long doctorId){
 		DoctorEntity doctor = doctorService.getById(doctorId);
 
         return R.ok().put("doctor", doctor);
@@ -75,7 +75,7 @@ public class DoctorController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Integer[] doctorIds){
+    public R delete(@RequestBody Long[] doctorIds){
 		doctorService.removeByIds(Arrays.asList(doctorIds));
 
         return R.ok();

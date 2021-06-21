@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
- * @date 2021-06-10 11:49:18
+ * @date 2021-06-21 14:30:07
  */
 @Data
 @TableName("doctor")
@@ -23,15 +23,11 @@ public class DoctorEntity implements Serializable {
 	 * 主键
 	 */
 	@TableId
-	private Integer doctorId;
+	private Long doctorId;
 	/**
-	 * 咨询师登录的普通账户
+	 * 
 	 */
-	private String doctorName;
-	/**
-	 * 用于登录的密码
-	 */
-	private String doctorPwd;
+	private Long userId;
 	/**
 	 * 咨询师姓名
 	 */
@@ -45,18 +41,6 @@ public class DoctorEntity implements Serializable {
 	 */
 	private Integer age;
 	/**
-	 * 咨询师电话
-	 */
-	private String phone;
-	/**
-	 * 咨询师电子邮件
-	 */
-	private String email;
-	/**
-	 * 咨询师账户状态  0停用，1激活
-	 */
-	private Integer isActive;
-	/**
 	 * 咨询师等级（一级、二级 等）
 	 */
 	private String level;
@@ -65,12 +49,16 @@ public class DoctorEntity implements Serializable {
 	 */
 	private String skill;
 	/**
-	 * 展示给来访者的 个人照片
+	 * 头像
 	 */
-	private String img;
+	private String avatar;
 	/**
 	 * 咨询师 的咨询地点
 	 */
 	private String place;
+	/**
+	 * 
+	 */
+	private String workTime;
 
 }

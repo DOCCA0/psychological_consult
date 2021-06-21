@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shangcheng.psychology.modules.psychology.entity.ClientEntity;
 import com.shangcheng.psychology.modules.psychology.service.ClientService;
-import com.shangcheng.psychology.common.utils.PageUtils;
-import com.shangcheng.psychology.common.utils.R;
+import com.shangcheng.psychology.modules.common.utils.PageUtils;
+import com.shangcheng.psychology.modules.common.utils.R;
 
 
 
@@ -22,7 +22,7 @@ import com.shangcheng.psychology.common.utils.R;
  *
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
- * @date 2021-06-10 11:49:22
+ * @date 2021-06-21 14:30:06
  */
 @RestController
 @RequestMapping("psychology/client")
@@ -45,7 +45,7 @@ public class ClientController {
      * 信息
      */
     @RequestMapping("/info/{clientId}")
-    public R info(@PathVariable("clientId") Integer clientId){
+    public R info(@PathVariable("clientId") Long clientId){
 		ClientEntity client = clientService.getById(clientId);
 
         return R.ok().put("client", client);
@@ -75,7 +75,7 @@ public class ClientController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Integer[] clientIds){
+    public R delete(@RequestBody Long[] clientIds){
 		clientService.removeByIds(Arrays.asList(clientIds));
 
         return R.ok();

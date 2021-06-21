@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shangcheng.psychology.modules.psychology.entity.AnnouncementEntity;
 import com.shangcheng.psychology.modules.psychology.service.AnnouncementService;
-import com.shangcheng.psychology.common.utils.PageUtils;
-import com.shangcheng.psychology.common.utils.R;
+import com.shangcheng.psychology.modules.common.utils.PageUtils;
+import com.shangcheng.psychology.modules.common.utils.R;
 
 
 
@@ -22,7 +22,7 @@ import com.shangcheng.psychology.common.utils.R;
  *
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
- * @date 2021-06-10 11:49:23
+ * @date 2021-06-21 14:30:07
  */
 @RestController
 @RequestMapping("psychology/announcement")

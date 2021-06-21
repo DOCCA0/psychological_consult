@@ -12,7 +12,7 @@ import lombok.Data;
  * 
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
- * @date 2021-06-10 11:49:22
+ * @date 2021-06-21 14:30:06
  */
 @Data
 @TableName("client")
@@ -23,15 +23,11 @@ public class ClientEntity implements Serializable {
 	 * 来访者的id主键
 	 */
 	@TableId
-	private Integer clientId;
+	private Long clientId;
 	/**
-	 * 来访者登录的普通账户
+	 * 
 	 */
-	private String clientName;
-	/**
-	 * 来访者登录的密码
-	 */
-	private String clientPwd;
+	private Long userId;
 	/**
 	 * 来访者姓名
 	 */
@@ -44,21 +40,5 @@ public class ClientEntity implements Serializable {
 	 * 来访者年龄
 	 */
 	private Integer age;
-	/**
-	 * 来访者电话
-	 */
-	private String phone;
-	/**
-	 * 来访者电子邮件
-	 */
-	private String email;
-	/**
-	 * 来访者账户状态  0停用，1激活
-	 */
-	private Integer isActive;
-	/**
-	 * 注册时间
-	 */
-	private Date regionTime;
 
 }
