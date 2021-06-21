@@ -15,6 +15,10 @@ import com.shangcheng.psychology.common.exception.RRException;
 import com.shangcheng.psychology.common.utils.Constant;
 import com.shangcheng.psychology.common.utils.PageUtils;
 import com.shangcheng.psychology.common.utils.Query;
+import com.shangcheng.psychology.modules.psychology.entity.ClientEntity;
+import com.shangcheng.psychology.modules.psychology.entity.DoctorEntity;
+import com.shangcheng.psychology.modules.psychology.service.ClientService;
+import com.shangcheng.psychology.modules.psychology.service.DoctorService;
 import com.shangcheng.psychology.modules.sys.dao.SysUserDao;
 import com.shangcheng.psychology.modules.sys.entity.SysUserEntity;
 import com.shangcheng.psychology.modules.sys.service.SysRoleService;
@@ -44,6 +48,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	private SysUserRoleService sysUserRoleService;
 	@Autowired
 	private SysRoleService sysRoleService;
+	@Autowired
+	private DoctorService doctorService;
+	@Autowired
+	private ClientService clientService;
 
 	@Override
 	public PageUtils queryPage(Map<String, Object> params) {
@@ -84,12 +92,32 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		user.setPassword(new Sha256Hash(user.getPassword(), salt).toHex());
 		user.setSalt(salt);
 		this.save(user);
-		
+
+
+
 		//检查角色是否越权
 		checkRole(user);
 		
 		//保存用户与角色关系
 		sysUserRoleService.saveOrUpdate(user.getUserId(), user.getRoleIdList());
+
+		//在相应的角色下增加一条数据
+		List<Long> userRolesId = sysUserRoleService.queryRoleIdList(user.getUserId());
+		for (Long id : userRolesId) {
+			if (id==2){
+				DoctorEntity doctorEntity = new DoctorEntity();
+				doctorEntity.setUserId(user.getUserId());
+				//是doctor
+				doctorService.save(doctorEntity);
+			}
+			if (id==4){
+				//是client
+				ClientEntity clientEntity=new ClientEntity();
+				clientEntity.setUserId(user.getUserId());
+				clientService.save(clientEntity);
+			}
+		}
+
 	}
 
 	@Override
@@ -126,6 +154,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	 * 检查角色是否越权
 	 */
 	private void checkRole(SysUserEntity user){
+		//TODO 越权判断
+		if(true){
+			return;
+		}
 		if(user.getRoleIdList() == null || user.getRoleIdList().size() == 0){
 			return;
 		}
