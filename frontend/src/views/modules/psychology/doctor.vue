@@ -58,12 +58,12 @@
           <el-tag v-else size="small">正常</el-tag>
         </template>
       </el-table-column>
-<!--      <el-table-column-->
-<!--        prop="roleIdList"-->
-<!--        header-align="center"-->
-<!--        align="center"-->
-<!--        label="角色">-->
-<!--      </el-table-column>-->
+      <el-table-column
+        prop="roleIdList"
+        header-align="center"
+        align="center"
+        label="角色">
+      </el-table-column>
       <el-table-column
         prop="createTime"
         header-align="center"
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-  import AddOrUpdate from './user-add-or-update'
+  import AddOrUpdate from './doctor-add-or-update'
   export default {
     data () {
       return {
