@@ -39,10 +39,10 @@
         width="750"
         label="你的答案">
         <template slot-scope="scope">
-          <el-radio v-model="answer" :label="1">A</el-radio>
-          <el-radio v-model="answer" :label="2">B</el-radio>
-          <el-radio v-model="answer" :label="3">C</el-radio>
-          <el-radio v-model="answer" :label="4">D</el-radio>
+          <el-radio v-model="answer" :label="1">非常符合</el-radio>
+          <el-radio v-model="answer" :label="2">比较符合</el-radio>
+          <el-radio v-model="answer" :label="3">不太符合</el-radio>
+          <el-radio v-model="answer" :label="4">完全不是</el-radio>
         </template>
       </el-table-column>
     </el-table>
@@ -108,59 +108,59 @@
           }
           this.dataListLoading = false
         })
-      },
-      // 每页数
-      sizeChangeHandle (val) {
-        this.pageSize = val
-        this.pageIndex = 1
-        this.getDataList()
-      },
-      // 当前页
-      currentChangeHandle (val) {
-        this.pageIndex = val
-        this.getDataList()
-      },
-      // 多选
-      selectionChangeHandle (val) {
-        this.dataListSelections = val
-      },
-      // 新增 / 修改
-      addOrUpdateHandle (id) {
-        this.addOrUpdateVisible = true
-        this.$nextTick(() => {
-          this.$refs.addOrUpdate.init(id)
-        })
-      },
-      // 删除
-      deleteHandle (id) {
-        var userIds = id ? [id] : this.dataListSelections.map(item => {
-          return item.userId
-        })
-        this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$http({
-            url: this.$http.adornUrl('/sys/user/delete'),
-            method: 'post',
-            data: this.$http.adornData(userIds, false)
-          }).then(({data}) => {
-            if (data && data.code === 0) {
-              this.$message({
-                message: '操作成功',
-                type: 'success',
-                duration: 1500,
-                onClose: () => {
-                  this.getDataList()
-                }
-              })
-            } else {
-              this.$message.error(data.msg)
-            }
-          })
-        }).catch(() => {})
       }
+      // 每页数
+      // sizeChangeHandle (val) {
+      //   this.pageSize = val
+      //   this.pageIndex = 1
+      //   this.getDataList()
+      // },
+      // // 当前页
+      // currentChangeHandle (val) {
+      //   this.pageIndex = val
+      //   this.getDataList()
+      // },
+      // // 多选
+      // selectionChangeHandle (val) {
+      //   this.dataListSelections = val
+      // },
+      // // 新增 / 修改
+      // addOrUpdateHandle (id) {
+      //   this.addOrUpdateVisible = true
+      //   this.$nextTick(() => {
+      //     this.$refs.addOrUpdate.init(id)
+      //   })
+      // },
+      // // 删除
+      // deleteHandle (id) {
+      //   var userIds = id ? [id] : this.dataListSelections.map(item => {
+      //     return item.userId
+      //   })
+      //   this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
+      //     confirmButtonText: '确定',
+      //     cancelButtonText: '取消',
+      //     type: 'warning'
+      //   }).then(() => {
+      //     this.$http({
+      //       url: this.$http.adornUrl('/sys/user/delete'),
+      //       method: 'post',
+      //       data: this.$http.adornData(userIds, false)
+      //     }).then(({data}) => {
+      //       if (data && data.code === 0) {
+      //         this.$message({
+      //           message: '操作成功',
+      //           type: 'success',
+      //           duration: 1500,
+      //           onClose: () => {
+      //             this.getDataList()
+      //           }
+      //         })
+      //       } else {
+      //         this.$message.error(data.msg)
+      //       }
+      //     })
+      //   }).catch(() => {})
+      // }
     }
   }
 </script>
