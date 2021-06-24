@@ -97,7 +97,7 @@
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
-            'limit': this.pageSize,
+            'limit': this.pageSize
             // 'username': this.dataForm.userName
           })
         }).then(({data}) => {
