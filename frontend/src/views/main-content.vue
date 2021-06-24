@@ -99,13 +99,13 @@
           this.$router.push({ name: 'home' })
         }
       },
-      // tabs, 关闭当前
-      tabsCloseCurrentHandle () {
-        this.removeTabHandle(this.mainTabsActiveName)
-      },
       // tabs, 关闭其它
       tabsCloseOtherHandle () {
         this.mainTabs = this.mainTabs.filter(item => item.name === this.mainTabsActiveName)
+      },
+      // tabs, 关闭当前
+      tabsCloseCurrentHandle () {
+        this.removeTabHandle(this.mainTabsActiveName)
       },
       // tabs, 关闭全部
       tabsCloseAllHandle () {
