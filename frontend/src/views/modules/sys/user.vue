@@ -59,7 +59,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="role"
+        prop="roleIdList"
         header-align="center"
         align="center"
         label="角色">
