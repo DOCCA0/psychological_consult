@@ -71,6 +71,8 @@ router.beforeEach((to, from, next) => {
         fnAddDynamicMenuRoutes(data.menuList)
         router.options.isAddDynamicMenuRoutes = true
         sessionStorage.setItem('menuList', JSON.stringify(data.menuList || '[]'))
+        console.log('获取到的menu是')
+        console.log(sessionStorage.getItem('menuList'))
         sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
         next({ ...to, replace: true })
       } else {

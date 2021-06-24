@@ -77,6 +77,8 @@
     created () {
       this.menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]')
       this.dynamicMenuRoutes = JSON.parse(sessionStorage.getItem('dynamicMenuRoutes') || '[]')
+      console.log('dynamicmenu')
+      console.log(this.dynamicMenuRoutes)
       this.routeHandle(this.$route)
     },
     methods: {

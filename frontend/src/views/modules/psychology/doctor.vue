@@ -31,22 +31,53 @@
         label="ID">
       </el-table-column>
       <el-table-column
-        prop="username"
+        prop="doctorId"
         header-align="center"
         align="center"
-        label="用户名">
+        label="医生编号">
       </el-table-column>
       <el-table-column
-        prop="email"
+        prop="name"
         header-align="center"
         align="center"
-        label="邮箱">
+        label="姓名">
       </el-table-column>
       <el-table-column
-        prop="mobile"
+        prop="sex"
         header-align="center"
         align="center"
-        label="手机号">
+        label="性别">
+      <template slot-scope="scope">{{ scope.row.sex === 0 ? '男' : '女' }}</template>
+      </el-table-column>
+      <el-table-column
+        prop="age"
+        header-align="center"
+        align="center"
+        label="年龄">
+      </el-table-column>
+      <el-table-column
+        prop="level"
+        header-align="center"
+        align="center"
+        label="级别">
+      </el-table-column>
+      <el-table-column
+        prop="skill"
+        header-align="center"
+        align="center"
+        label="擅长领域">
+      </el-table-column>
+      <el-table-column
+        prop="place"
+        header-align="center"
+        align="center"
+        label="工作地点">
+      </el-table-column>
+      <el-table-column
+        prop="workTime"
+        header-align="center"
+        align="center"
+        label="工作时间">
       </el-table-column>
       <el-table-column
         prop="status"
@@ -58,19 +89,19 @@
           <el-tag v-else size="small">正常</el-tag>
         </template>
       </el-table-column>
-      <el-table-column
-        prop="roleIdList"
-        header-align="center"
-        align="center"
-        label="角色">
-      </el-table-column>
-      <el-table-column
-        prop="createTime"
-        header-align="center"
-        align="center"
-        width="180"
-        label="创建时间">
-      </el-table-column>
+<!--      <el-table-column-->
+<!--        prop="roleIdList"-->
+<!--        header-align="center"-->
+<!--        align="center"-->
+<!--        label="角色">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--        prop="createTime"-->
+<!--        header-align="center"-->
+<!--        align="center"-->
+<!--        width="180"-->
+<!--        label="创建时间">-->
+<!--      </el-table-column>-->
       <el-table-column
         fixed="right"
         header-align="center"
@@ -126,12 +157,11 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/sys/user/list'),
+          url: this.$http.adornUrl('/psychology/doctor/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
-            'limit': this.pageSize,
-            'username': this.dataForm.userName
+            'limit': this.pageSize
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
