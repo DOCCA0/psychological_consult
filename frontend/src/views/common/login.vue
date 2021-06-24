@@ -141,7 +141,7 @@
     }
     .brand-info__text {
       margin:  0 0 22px 0;
-      font-size: 48px;
+      font-size: 60px;
       font-weight: 400;
       text-transform : uppercase;
     }
