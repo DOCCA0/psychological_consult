@@ -72,10 +72,7 @@
         dataForm: {
           userName: ''
         },
-        answer: 0,
-        answer2: 0,
-        answer3: 0,
-        answer4: 0,
+        answer: [],
         dataList: [],
         pageIndex: 1,
         pageSize: 20,
