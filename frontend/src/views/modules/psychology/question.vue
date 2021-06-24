@@ -1,5 +1,5 @@
 <template>
-  <div class="mod-user">
+  <div class="question-list">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
 <!--      <el-form-item>-->
 <!--        <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>-->
@@ -39,10 +39,13 @@
         width="750"
         label="你的答案">
         <template slot-scope="scope">
-          <el-radio v-model="answer" :label="1">非常符合</el-radio>
-          <el-radio v-model="answer" :label="2">比较符合</el-radio>
-          <el-radio v-model="answer" :label="3">不太符合</el-radio>
-          <el-radio v-model="answer" :label="4">完全不是</el-radio>
+          <el-radio-group v-model="answer">
+            <el-radio :label="scope.$index+1000">非常符合</el-radio>
+            <el-radio :label="scope.$index+2000">比较符合</el-radio>
+            <el-radio :label="scope.$index+3000">不太符合</el-radio>
+            <el-radio :label="scope.$index+4000">完全不是</el-radio>
+          </el-radio-group>
+
         </template>
       </el-table-column>
     </el-table>
@@ -70,6 +73,9 @@
           userName: ''
         },
         answer: 0,
+        answer2: 0,
+        answer3: 0,
+        answer4: 0,
         dataList: [],
         pageIndex: 1,
         pageSize: 20,
