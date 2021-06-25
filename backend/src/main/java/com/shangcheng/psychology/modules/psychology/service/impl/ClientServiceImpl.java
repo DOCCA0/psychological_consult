@@ -30,7 +30,7 @@ public class ClientServiceImpl extends ServiceImpl<ClientDao, ClientEntity> impl
     public PageUtils queryPageById(Map<String, Object> params) {
         IPage<ClientEntity> page = this.page(
                 new Query<ClientEntity>().getPage(params),
-                new QueryWrapper<ClientEntity>().eq("userId",params.get("userId"))
+                new QueryWrapper<ClientEntity>().eq("user_id",params.get("userId"))
         );
 
         return new PageUtils(page);

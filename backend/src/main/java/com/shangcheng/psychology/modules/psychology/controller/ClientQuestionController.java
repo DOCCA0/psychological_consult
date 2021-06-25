@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.shangcheng.psychology.modules.sys.controller.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ import com.shangcheng.psychology.modules.common.utils.R;
  */
 @RestController
 @RequestMapping("psychology/clientquestion")
-public class ClientQuestionController {
+public class ClientQuestionController extends AbstractController {
     @Autowired
     private ClientQuestionService clientQuestionService;
 
@@ -68,7 +69,9 @@ public class ClientQuestionController {
      */
     @RequestMapping("/saves")
     public R saves(@RequestBody List<ClientQuestionEntity> clientQuestions){
+        Long clientId = getClientId();
         for (ClientQuestionEntity clientQuestion:clientQuestions) {
+            clientQuestion.setClientId(clientId);
             clientQuestionService.save(clientQuestion);
         }
         return R.ok();
