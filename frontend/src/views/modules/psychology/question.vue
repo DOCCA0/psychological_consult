@@ -1,6 +1,6 @@
 <template>
   <div class="question-list">
-    <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
+<!--    <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">-->
 <!--      <el-form-item>-->
 <!--        <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>-->
 <!--      </el-form-item>-->
@@ -9,7 +9,7 @@
 <!--        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>-->
 <!--        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>-->
 <!--      </el-form-item>-->
-    </el-form>
+<!--    </el-form>-->
 <!--    表格-->
     <el-table
       :data="dataList"
@@ -30,7 +30,6 @@
         align="center"
         label="问题">
       </el-table-column>
-
       <el-table-column
         fixed="right"
         header-align="center"
@@ -38,20 +37,17 @@
         width="500"
         label="你的答案">
         <template slot-scope="scope">
-            <el-radio-group v-model="scope.row.id">
-              <el-radio :label="1" >非常符合</el-radio>
-              <el-radio :label="2" >比较符合</el-radio>
-              <el-radio :label="3" >不太符合</el-radio>
-              <el-radio :label="4" >完全不是</el-radio>
+            <el-radio-group v-model="scope.row.id" @change="getValue(scope.$index,scope.row.id)">
+              <el-radio :label="0"  >非常符合</el-radio>
+              <el-radio :label="1"  >比较符合</el-radio>
+              <el-radio :label="2"  >不太符合</el-radio>
+              <el-radio :label="3"  >完全不是</el-radio>
             </el-radio-group>
         </template>
       </el-table-column>
     </el-table>
     <el-button type="primary" style="float:right">提交<i class="el-icon-check el-icon--right"></i></el-button>
-
-
-
-<!--    <el-pagination-->
+    <!--    <el-pagination-->
 <!--      @size-change="sizeChangeHandle"-->
 <!--      @current-change="currentChangeHandle"-->
 <!--      :current-page="pageIndex"-->
@@ -85,9 +81,13 @@
     },
     activated () {
       this.getDataList()
+      this.getValue()
     },
     methods: {
-      // 获取数据列表
+      getValue (a, b) {
+        console.log(a, b)
+        sessionStorage.setItem(a, b)
+      },
       getDataList () {
         this.dataListLoading = true
         this.$http({
