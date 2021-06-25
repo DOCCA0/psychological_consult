@@ -46,7 +46,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" style="float:right">提交<i class="el-icon-check el-icon--right"></i></el-button>
+    <el-button type="primary" style="float:right" @click="open">提交<i class="el-icon-check el-icon--right"></i></el-button>
     <!--    <el-pagination-->
 <!--      @size-change="sizeChangeHandle"-->
 <!--      @current-change="currentChangeHandle"-->
@@ -84,6 +84,17 @@
       this.getValue()
     },
     methods: {
+      open () {
+        this.$alert('确定要提交吗', '', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `提交成功`
+            })
+          }
+        })
+      },
       getValue (a, b) {
         console.log(a, b)
         sessionStorage.setItem(a, b)
