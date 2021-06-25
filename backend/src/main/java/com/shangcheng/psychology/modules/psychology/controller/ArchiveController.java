@@ -1,12 +1,14 @@
 package com.shangcheng.psychology.modules.psychology.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.shangcheng.psychology.modules.psychology.entity.DoctorEntity;
 import com.shangcheng.psychology.modules.psychology.service.DoctorService;
 import com.shangcheng.psychology.modules.sys.controller.AbstractController;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,6 +82,9 @@ public class ArchiveController extends AbstractController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody ArchiveEntity archive){
+        archive.setClientId(getClientId());
+        Date date = new Date();
+        archive.setApplyTime(date);
 		archiveService.save(archive);
 
         return R.ok();
