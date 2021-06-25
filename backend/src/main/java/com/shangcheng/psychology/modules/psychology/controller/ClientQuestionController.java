@@ -72,6 +72,7 @@ public class ClientQuestionController extends AbstractController {
         Long clientId = getClientId();
         for (ClientQuestionEntity clientQuestion:clientQuestions) {
             clientQuestion.setClientId(clientId);
+            clientQuestion.setScore(clientQuestion.getHisAnswer()+1);
             clientQuestionService.save(clientQuestion);
         }
         return R.ok();
