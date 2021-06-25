@@ -1,15 +1,5 @@
 <template>
   <div class="mod-user">
-    <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
-      <el-form-item>
-        <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
-      </el-form-item>
-    </el-form>
 <!--    表格-->
     <el-table
       :data="dataList"
@@ -17,67 +7,37 @@
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
       style="width: 100%;">
+
       <el-table-column
-        type="selection"
-        header-align="center"
-        align="center"
-        width="50">
-      </el-table-column>
-      <el-table-column
-        prop="userId"
+        prop="archivesId"
         header-align="center"
         align="center"
         width="80"
-        label="ID">
+        label="申请Id">
       </el-table-column>
       <el-table-column
-        prop="doctorId"
+        prop="clientId"
         header-align="center"
         align="center"
-        label="医生编号">
+        label="申请者编号">
       </el-table-column>
       <el-table-column
-        prop="name"
+        prop="clientDescription"
         header-align="center"
         align="center"
-        label="姓名">
+        label="申请者描述">
       </el-table-column>
       <el-table-column
-        prop="sex"
+        prop="doctorDescription"
         header-align="center"
         align="center"
-        label="性别">
-      <template slot-scope="scope">{{ scope.row.sex === 0 ? '男' : '女' }}</template>
+        label="我的回复">
       </el-table-column>
       <el-table-column
-        prop="age"
+        prop="applyTime"
         header-align="center"
         align="center"
-        label="年龄">
-      </el-table-column>
-      <el-table-column
-        prop="level"
-        header-align="center"
-        align="center"
-        label="级别">
-      </el-table-column>
-      <el-table-column
-        prop="skill"
-        header-align="center"
-        align="center"
-        label="擅长领域">
-      </el-table-column>
-      <el-table-column
-        prop="place"
-        header-align="center"
-        align="center"
-        label="工作地点">
-      </el-table-column>
-      <el-table-column
-        prop="workTime"
-        header-align="center"
-        align="center"
-        label="工作时间">
+        label="申请时间">
       </el-table-column>
       <el-table-column
         prop="status"
@@ -85,23 +45,11 @@
         align="center"
         label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.status === 0" size="small" type="danger">禁用</el-tag>
-          <el-tag v-else size="small">正常</el-tag>
+          <el-tag v-if="scope.row.status === -1" size="small" type="danger">申请失败</el-tag>
+          <el-tag v-if="scope.row.status === 0" size="small">申请中</el-tag>
+          <el-tab v-if="scope.row.status === 1" size="small" type="success">申请成功</el-tab>
         </template>
       </el-table-column>
-<!--      <el-table-column-->
-<!--        prop="roleIdList"-->
-<!--        header-align="center"-->
-<!--        align="center"-->
-<!--        label="角色">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--        prop="createTime"-->
-<!--        header-align="center"-->
-<!--        align="center"-->
-<!--        width="180"-->
-<!--        label="创建时间">-->
-<!--      </el-table-column>-->
       <el-table-column
         fixed="right"
         header-align="center"
@@ -158,10 +106,9 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/psychology/archive/info'),
+          url: this.$http.adornUrl('/psychology/archive/infoByToken'),
           method: 'get',
           params: this.$http.adornParams({
-            'doctorId': localStorage.getItem('doctorId'),
             'page': this.pageIndex,
             'limit': this.pageSize
           })
