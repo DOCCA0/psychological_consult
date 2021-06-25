@@ -9,7 +9,7 @@ import lombok.Data;
 
 /**
  * client和问题的对应
- * 
+ *
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
  * @date 2021-06-21 14:30:04
@@ -33,7 +33,7 @@ public class ClientQuestionEntity implements Serializable {
 	 */
 	private Long questionId;
 	/**
-	 * 1 2 3 4分别代表他的答案
+	 * 0 1 2 3分别代表他的答案
 	 */
 	private Integer hisAnswer;
 	/**
