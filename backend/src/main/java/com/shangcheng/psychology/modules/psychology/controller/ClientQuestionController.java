@@ -1,6 +1,7 @@
 package com.shangcheng.psychology.modules.psychology.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,17 @@ public class ClientQuestionController {
         return R.ok();
     }
 
+
+    /**
+     * 保存
+     */
+    @RequestMapping("/saves")
+    public R saves(@RequestBody List<ClientQuestionEntity> clientQuestions){
+        for (ClientQuestionEntity clientQuestion:clientQuestions) {
+            clientQuestionService.save(clientQuestion);
+        }
+        return R.ok();
+    }
 
     /**
      * 修改

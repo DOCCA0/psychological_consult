@@ -109,8 +109,9 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+          <el-button v-if="isAuth('sys:user:save')" type="primary" @click="applyHandle()">申请</el-button>
+          <!--<el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>-->
+          <!--<el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -126,11 +127,13 @@
     </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+    <apply v-if="applyVisible" ref="apply" @refreshDataList="getDataList"></apply>
   </div>
 </template>
 
 <script>
   import AddOrUpdate from './doctor-add-or-update'
+  import Apply from './doctor-apply'
   export default {
     data () {
       return {
@@ -143,10 +146,12 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateVisible: false
+        addOrUpdateVisible: false,
+        applyVisible: false
       }
     },
     components: {
+      Apply,
       AddOrUpdate
     },
     activated () {
@@ -195,6 +200,13 @@
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
+        })
+      },
+      // 申请
+      applyHandle (id) {
+        this.applyVisible = true
+        this.$nextTick(() => {
+          this.$refs.apply.init(id)
         })
       },
       // 删除
