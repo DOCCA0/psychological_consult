@@ -35,7 +35,7 @@
         fixed="right"
         header-align="center"
         align="center"
-        width="750"
+        width="500"
         label="你的答案">
         <template slot-scope="scope">
             <el-radio-group v-model="scope.row.id">
@@ -47,7 +47,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" style="float: right">提交<i class="el-icon-check el-icon--right"></i></el-button>
+    <el-button type="primary" style="float:right">提交<i class="el-icon-check el-icon--right"></i></el-button>
 
 
 
