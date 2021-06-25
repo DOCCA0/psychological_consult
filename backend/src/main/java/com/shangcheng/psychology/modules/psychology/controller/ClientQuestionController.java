@@ -56,10 +56,11 @@ public class ClientQuestionController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody ClientQuestionEntity clientQuestion){
-		clientQuestionService.save(clientQuestion);
+        clientQuestionService.save(clientQuestion);
 
         return R.ok();
     }
+
 
     /**
      * 修改

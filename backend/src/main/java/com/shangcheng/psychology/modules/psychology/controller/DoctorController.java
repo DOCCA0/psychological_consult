@@ -3,6 +3,7 @@ package com.shangcheng.psychology.modules.psychology.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import com.shangcheng.psychology.modules.sys.controller.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ import com.shangcheng.psychology.modules.common.utils.R;
  */
 @RestController
 @RequestMapping("psychology/doctor")
-public class DoctorController {
+public class DoctorController extends AbstractController {
     @Autowired
     private DoctorService doctorService;
 
@@ -48,8 +49,18 @@ public class DoctorController {
     public R info(@PathVariable("doctorId") Long doctorId){
 		DoctorEntity doctor = doctorService.getById(doctorId);
 
-        return R.ok().put("doctor", doctor);
+        return R.ok().put("page", doctor);
     }
+
+    /**
+     * 根据token获取doctor信息
+     */
+    @RequestMapping("/infoByToken")
+    public R infoByToken(){
+        return R.ok().put("page",getDoctor());
+    }
+
+
 
     /**
      * 保存

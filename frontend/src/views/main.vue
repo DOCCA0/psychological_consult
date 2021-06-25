@@ -79,6 +79,9 @@
           params: this.$http.adornParams()
         }).then(({data}) => {
           if (data && data.code === 0) {
+            console.log('当前管理员')
+            console.log(data.user)
+            localStorage.setItem('userId', data.user.userId)
             this.loading = false
             this.userId = data.user.userId
             this.userName = data.user.username

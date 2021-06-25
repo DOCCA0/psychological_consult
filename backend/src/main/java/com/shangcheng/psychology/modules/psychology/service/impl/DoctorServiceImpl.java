@@ -22,7 +22,15 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorDao, DoctorEntity> impl
                 new Query<DoctorEntity>().getPage(params),
                 new QueryWrapper<DoctorEntity>()
         );
+        return new PageUtils(page);
+    }
 
+    @Override
+    public PageUtils queryPageById(Map<String, Object> params) {
+        IPage<DoctorEntity> page = this.page(
+                new Query<DoctorEntity>().getPage(params),
+                new QueryWrapper<DoctorEntity>().eq("user_id",params.get("userId"))
+        );
         return new PageUtils(page);
     }
 

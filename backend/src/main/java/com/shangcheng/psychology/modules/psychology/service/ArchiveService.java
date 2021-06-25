@@ -16,5 +16,7 @@ import java.util.Map;
 public interface ArchiveService extends IService<ArchiveEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    PageUtils queryPageByDocId(Map<String, Object> params);
 }
 

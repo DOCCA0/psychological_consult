@@ -16,5 +16,6 @@ import java.util.Map;
 public interface DoctorService extends IService<DoctorEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPageById(Map<String, Object> params);
 }
 

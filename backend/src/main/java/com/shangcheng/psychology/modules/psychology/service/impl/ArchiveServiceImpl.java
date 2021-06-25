@@ -26,4 +26,16 @@ public class ArchiveServiceImpl extends ServiceImpl<ArchiveDao, ArchiveEntity> i
         return new PageUtils(page);
     }
 
+    @Override
+    public PageUtils queryPageByDocId(Map<String, Object> params) {
+        IPage<ArchiveEntity> page = this.page(
+                new Query<ArchiveEntity>().getPage(params),
+                new QueryWrapper<ArchiveEntity>().eq("doctor_id",params.get("doctorId"))
+        );
+
+        return new PageUtils(page);
+    }
+
+
+
 }
