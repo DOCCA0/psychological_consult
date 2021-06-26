@@ -81,6 +81,7 @@ public class ArchiveController extends AbstractController {
      */
     @RequestMapping("/save")
     public R save(@RequestBody ArchiveEntity archive){
+        System.out.println(archive.toString());
         archive.setClientId(getClientId());
         Date date = new Date();
         archive.setApplyTime(date);
