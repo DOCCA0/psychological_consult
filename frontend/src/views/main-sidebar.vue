@@ -21,7 +21,7 @@
           </el-menu-item>
           <el-menu-item index="demo-ueditor" @click="$router.push({ name: 'demo-ueditor' })">
             <icon-svg name="editor" class="site-sidebar__menu-icon"></icon-svg>
-            <span slot="title">ueditor</span>
+            <span slot="title">留言</span>
           </el-menu-item>
         </el-submenu>
         <sub-menu
