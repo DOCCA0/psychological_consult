@@ -9,7 +9,7 @@ import lombok.Data;
 
 /**
  * 公告面板，发布通知
- * 
+ *
  * @author WuCao/WangLiHan/DingRuiPeng
  * @email 2947323341@qq.com
  * @date 2021-06-21 14:30:07
@@ -48,5 +48,8 @@ public class AnnouncementEntity implements Serializable {
 	 * 优先级，实现置顶等功能
 	 */
 	private Integer priority;
+
+
+
 
 }
