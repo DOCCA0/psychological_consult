@@ -47,6 +47,14 @@
       // 柱状图
       initChartBar () {
         var option = {
+          title: {
+            text: '心理问题产生的原因',
+            left: 'left',
+            top: 5,
+            textStyle: {
+              color: '#0c0c0c'
+            }
+          },
           tooltip: {
             trigger: 'axis',
             axisPointer: {
