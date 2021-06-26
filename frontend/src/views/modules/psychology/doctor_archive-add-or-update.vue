@@ -24,7 +24,8 @@
       }
     },
     methods: {
-      init (id) {
+      init (type, id) {
+        console.log('type是 ', type)
         this.dataForm.id = id || 0
         this.$http({
           url: this.$http.adornUrl('/psychology/archive/infoByArchivesId/' + id),
@@ -38,7 +39,15 @@
             this.dataForm = []
           }
         }).then(() => {
-          this.visible = true
+          if (type === 0) {
+            this.visible = true
+          } else if (type === 1) {
+            this.dataForm.status = 1
+            this.dataFormSubmit()
+          } else {
+            this.dataForm.status = -1
+            this.dataFormSubmit()
+          }
           this.$nextTick(() => {
             this.$refs['dataForm'].resetFields()
           })

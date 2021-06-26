@@ -12,7 +12,7 @@
         prop="archivesId"
         header-align="center"
         align="center"
-        width="80"
+        width="50"
         label="申请Id">
       </el-table-column>
       <el-table-column
@@ -45,20 +45,21 @@
         align="center"
         label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.status === -1" size="small" type="danger">申请失败</el-tag>
-          <el-tag v-if="scope.row.status === 0" size="small">申请中</el-tag>
-          <el-tab v-if="scope.row.status === 1" size="small" type="success">申请成功</el-tab>
+          <el-tag v-if="scope.row.status === -1"  type="danger">申请失败</el-tag>
+          <el-tag v-if="scope.row.status === 0" >申请中</el-tag>
+          <el-tag v-if="scope.row.status === 1" type="success">申请成功</el-tag>
         </template>
       </el-table-column>
       <el-table-column
         fixed="right"
         header-align="center"
         align="center"
-        width="150"
+        width="250"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.archivesId)">修改回复</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+          <el-button type="text" size="small" @click="addOrUpdateHandle(0, scope.row.archivesId)">修改回复</el-button>
+          <el-button type="success" size="small" @click="addOrUpdateHandle(1, scope.row.archivesId)">同意</el-button>
+          <el-button type="danger" size="small" @click="addOrUpdateHandle(2, scope.row.archivesId)">终止</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -136,43 +137,12 @@
         this.getDataList()
       },
       // 新增 / 修改
-      addOrUpdateHandle (id) {
+      addOrUpdateHandle (type, id) {
         this.addOrUpdateVisible = true
         this.$nextTick(() => {
-          this.$refs.addOrUpdate.init(id)
+          this.$refs.addOrUpdate.init(type, id)
         })
-      },
-      // 删除
-      deleteHandle (id) {
-        var userIds = id ? [id] : this.dataListSelections.map(item => {
-          return item.userId
-        })
-        this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$http({
-            url: this.$http.adornUrl('/sys/user/delete'),
-            method: 'post',
-            data: this.$http.adornData(userIds, false)
-          }).then(({data}) => {
-            if (data && data.code === 0) {
-              this.$message({
-                message: '操作成功',
-                type: 'success',
-                duration: 1500,
-                onClose: () => {
-                  this.getDataList()
-                }
-              })
-            } else {
-              this.$message.error(data.msg)
-            }
-          })
-        }).catch(() => {})
       }
-
     }
   }
 </script>
