@@ -47,17 +47,6 @@
       </el-table-column>
     </el-table>
     <el-button type="primary" style="float:right" @click="submit">提交<i class="el-icon-check el-icon--right"></i></el-button>
-    <!--    <el-pagination-->
-<!--      @size-change="sizeChangeHandle"-->
-<!--      @current-change="currentChangeHandle"-->
-<!--      :current-page="pageIndex"-->
-<!--      :page-sizes="[10, 20, 50, 100]"-->
-<!--      :page-size="pageSize"-->
-<!--      :total="totalPage"-->
-<!--      layout="total, sizes, prev, pager, next, jumper">-->
-<!--    </el-pagination>-->
-<!--    &lt;!&ndash; 弹窗, 新增 / 修改 &ndash;&gt;-->
-<!--    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>-->
   </div>
 </template>
 
@@ -75,9 +64,6 @@
         dataListSelections: [],
         addOrUpdateVisible: false
       }
-    },
-    components: {
-      // AddOrUpdate
     },
     activated () {
       this.getDataList()
@@ -107,7 +93,7 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
-                message: '操作成功',
+                message: '提交成功',
                 type: 'success',
                 duration: 1500,
                 onClose: () => {
@@ -116,7 +102,7 @@
                 }
               })
             } else {
-              this.$message.error(data.msg)
+              this.$message.error('未做完题目')
             }
           })
         }).catch(() => {
