@@ -68,14 +68,13 @@ public class ArchiveController extends AbstractController {
     }
 
     /**
-     * 信息
+     * archiveId获取archive
      */
-//    @RequestMapping("/info/{archivesId}")
-//    public R info(@PathVariable("archivesId") Integer archivesId){
-//		ArchiveEntity archive = archiveService.getById(archivesId);
-//
-//        return R.ok().put("archive", archive);
-//    }
+    @RequestMapping("/infoByArchivesId/{archivesId}")
+    public R infoByArchivesId(@PathVariable("archivesId") Integer archivesId){
+		ArchiveEntity archive = archiveService.getById(archivesId);
+        return R.ok().put("archive", archive);
+    }
 
     /**
      * 保存

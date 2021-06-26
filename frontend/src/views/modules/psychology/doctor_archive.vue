@@ -57,7 +57,7 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改回复</el-button>
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.archivesId)">修改回复</el-button>
           <el-button type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
         </template>
       </el-table-column>
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-  // import AddOrUpdate from './doctor-add-or-update'
+  import AddOrUpdate from './doctor_archive-add-or-update'
   export default {
     data () {
       return {
@@ -96,7 +96,7 @@
       }
     },
     components: {
-      // AddOrUpdate
+      AddOrUpdate
     },
     activated () {
       this.getDataList()
@@ -135,10 +135,6 @@
         this.pageIndex = 1
         this.getDataList()
       },
-      // 多选
-      selectionChangeHandle (val) {
-        this.dataListSelections = val
-      },
       // 新增 / 修改
       addOrUpdateHandle (id) {
         this.addOrUpdateVisible = true
@@ -176,6 +172,7 @@
           })
         }).catch(() => {})
       }
+
     }
   }
 </script>
