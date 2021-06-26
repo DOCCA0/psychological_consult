@@ -24,11 +24,7 @@
             </el-badge>
           </template>
         </el-menu-item>
-        <el-menu-item index="2">
-          <el-badge value="hot">
-            <a href="https://www.renren.io/" target="_blank">官方社区</a>
-          </el-badge>
-        </el-menu-item>
+
         <el-submenu index="3">
           <template slot="title">Git源码</template>
           <el-menu-item index="2-1"><a href="https://github.com/renrenio/renren-fast-vue" target="_blank">前端</a></el-menu-item>
