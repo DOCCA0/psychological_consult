@@ -46,7 +46,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary" style="float:right" @click="open">提交<i class="el-icon-check el-icon--right"></i></el-button>
+    <el-button type="primary" style="float:right" @click="submit">提交<i class="el-icon-check el-icon--right"></i></el-button>
     <!--    <el-pagination-->
 <!--      @size-change="sizeChangeHandle"-->
 <!--      @current-change="currentChangeHandle"-->
@@ -84,20 +84,52 @@
       this.getValue()
     },
     methods: {
-      open () {
-        this.$alert('确定要提交吗', '', {
+      // 提交确认
+      submit () {
+        this.$confirm('确定要提交吗?', '提示', {
           confirmButtonText: '确定',
-          callback: action => {
-            this.$message({
-              type: 'info',
-              message: `提交成功`
-            })
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let form = []
+          for (let i = 1; i <= 20; i++) {
+            let myObj = {
+              'questionId': i,
+              'hisAnswer': sessionStorage.getItem(i - 1)
+            }
+            form.push(myObj)
           }
+          console.log(form)
+          this.$http({
+            url: this.$http.adornUrl(`/psychology/clientquestion/saves`),
+            method: 'post',
+            data: form
+          }).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.visible = false
+                  this.$emit('refreshDataList')
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消提交'
+          })
         })
       },
       getValue (a, b) {
         console.log(a, b)
         sessionStorage.setItem(a, b)
+        console.log(sessionStorage.getItem(a))
       },
       getDataList () {
         this.dataListLoading = true
