@@ -71,7 +71,6 @@
             })
           }
         })
-<<<<<<< HEAD
       },
       // 柱状图
       initChartBar () {
@@ -181,8 +180,6 @@
         window.addEventListener('resize', () => {
           this.chartBar.resize()
         })
-=======
->>>>>>> e605db80d7a93b0a2aa56db005f1fc41e5a4eb78
       },
       // 饼状图
       initChartPie () {
