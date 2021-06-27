@@ -40,8 +40,9 @@
       return {
         visible: false,
         dataForm: {
-          id: 0,
-          userName: '',
+
+          userId: '',
+          doctorId: '',
           name: '',
           sex: '',
           age: '',
@@ -49,7 +50,7 @@
           skill: '',
           place: '',
           workTime: '',
-          status: 1
+          avatar: ''
         }
       }
     },
@@ -66,7 +67,9 @@
                 params: this.$http.adornParams()
               }).then(({data}) => {
                 if (data && data.code === 0) {
-                  console.log('data is', data.page.list[0].name)
+                  console.log('data is', data.page.list[0])
+                  this.dataForm.doctorId = data.page.list[0].doctorId
+                  this.dataForm.userId = data.page.list[0].userId
                   this.dataForm.name = data.page.list[0].name
                   this.dataForm.sex = data.page.list[0].sex
                   this.dataForm.age = data.page.list[0].age
@@ -74,6 +77,7 @@
                   this.dataForm.skill = data.page.list[0].skill
                   this.dataForm.place = data.page.list[0].place
                   this.dataForm.workTime = data.page.list[0].workTime
+                  this.dataForm.avatar = data.page.list[0].avatar
                 }
               })
             }
@@ -84,13 +88,16 @@
               url: this.$http.adornUrl(`/psychology/doctor/update`),
               method: 'post',
               data: this.$http.adornData({
+                'avatar': this.dataForm.avatar,
+                'doctorId': this.dataForm.doctorId,
+                'userId': this.dataForm.userId,
                 'name': this.dataForm.name,
                 'sex': this.dataForm.sex,
                 'age': this.dataForm.age,
                 'level': this.dataForm.level,
                 'skill': this.dataForm.skill,
                 'place': this.dataForm.place,
-                'work_time': this.dataForm.workTime
+                'workTime': this.dataForm.workTime
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
