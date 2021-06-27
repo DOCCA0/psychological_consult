@@ -35,7 +35,7 @@
           disabled
           show-score
           :colors="{2:'#00ff99', 3:'#ffa621', 5:'#ff2121'}"
-          text-color="#ff2121">
+          text-color="#008080">
         </el-rate>
         </template>
       </el-table-column>
