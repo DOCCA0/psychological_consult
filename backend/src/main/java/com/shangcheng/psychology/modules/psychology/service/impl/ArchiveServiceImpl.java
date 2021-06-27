@@ -29,7 +29,7 @@ public class ArchiveServiceImpl extends ServiceImpl<ArchiveDao, ArchiveEntity> i
     @Override
     public PageUtils queryPageById(Map<String, Object> params) {
         IPage<ArchiveEntity> page;
-        if (!params.get("doctorId").equals(null)){
+        if (params.get("doctorId")!=null){
              page = this.page(
                     new Query<ArchiveEntity>().getPage(params),
                     new QueryWrapper<ArchiveEntity>().eq("doctor_id",params.get("doctorId"))

@@ -63,11 +63,20 @@ public class ArchiveController extends AbstractController {
      */
     @RequestMapping("/infoByToken")
     public R infoByToken(@RequestParam Map<String, Object> params){
-        Long doctorId = getDoctorId();
-        Long clientId = getClientId();
-        if (!doctorId.equals(null)) {
+        Long doctorId=null;
+        Long clientId=null;
+        try {
+            doctorId = getDoctorId();
+        }catch (Exception e){}
+        try {
+            clientId = getClientId();
+        }catch (Exception e){}
+
+        if (doctorId!=null) {
             params.put("doctorId", doctorId);
         }else{
+            System.out.println("clietn id shi");
+            System.out.println(clientId);
             params.put("clientId", clientId);
         }
         return infoById(params);
