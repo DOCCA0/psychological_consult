@@ -23,7 +23,8 @@
         dataForm: {
           status: 0,
           doctorId: 3,
-          clientDescription: ''
+          clientDescription: '',
+          doctorDescription: ''
         }
       }
     },

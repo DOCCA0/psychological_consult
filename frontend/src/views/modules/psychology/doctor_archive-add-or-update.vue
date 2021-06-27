@@ -1,49 +1,53 @@
 <template>
-<!--  医生修改回复弹出框-->
-  <el-dialog
-    :title="修改"
-    :close-on-click-modal="false"
-    :visible.sync="visible">
-    <el-form :model="dataForm" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="我的回复" >
-        <el-input v-model="dataForm.doctorDescription"></el-input>
-      </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
+  <div>
+    <!--  医生修改回复弹出框-->
+    <el-dialog
+      :title="修改医生回复"
+      :close-on-click-modal="false"
+      :visible.sync="visible">
+      <el-form :model="dataForm" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
+        <el-form-item label="我的回复" >
+          <el-input v-model="dataForm.doctorDescription"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
       <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
     </span>
-  </el-dialog>
+    </el-dialog>
+    <!--client修改回复弹出框-->
+    <el-dialog
+      :title="修改申请者回复"
+      :close-on-click-modal="false"
+      :visible.sync="client_visible">
+      <el-form :model="dataForm" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
+        <el-form-item label="我的回复" >
+          <el-input v-model="dataForm.clientDescription"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+      <el-button @click="client_visible = false">取消</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
+    </span>
+    </el-dialog>
+  </div>
 
 </template>
-<template>
-  <!--client修改回复弹出框-->
-  <el-dialog
-    :title="修改"
-    :close-on-click-modal="false"
-    :visible.sync="client_visible">
-    <el-form :model="dataForm" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="我的回复" >
-        <el-input v-model="dataForm.clientDescription"></el-input>
-      </el-form-item>
-    </el-form>
-    <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
-    </span>
-  </el-dialog>
-</template>
+
+
+
 <script>
   export default {
     data () {
       return {
         visible: false,
-        client_visible: true,
+        client_visible: false,
         dataForm: {}
       }
     },
     methods: {
       init (type, id) {
+        console.log('visible和clientVisible', this.visible, this.client_visible)
         console.log('type是 ', type)
         this.dataForm.id = id || 0
         this.$http({
@@ -99,6 +103,8 @@
             this.$message.error(data.msg)
           }
         })
+        // this.visible = false
+        // this.client_visible = false
       }
     }
   }
