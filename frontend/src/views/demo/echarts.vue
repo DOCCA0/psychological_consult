@@ -27,12 +27,16 @@
     data () {
       return {
         chartBar: null,
-        chartPie: null
+        chartPie: null,
+        answer0Cnt: 0,
+        answer1Cnt: 0,
+        answer2Cnt: 0,
+        answer3Cnt: 0
       }
     },
     mounted () {
       this.initChartBar()
-      this.initChartPie()
+      // this.initChartPie()
     },
     activated () {
       // 由于给echart添加了resize事件, 在组件激活时需要重新resize绘画一次, 否则出现空白bug
@@ -43,7 +47,48 @@
         this.chartPie.resize()
       }
     },
+    created() {
+      this.getAnswerCount()
+    },
     methods: {
+      getAnswerCount() {
+        this.$http({
+          url: this.$http.adornUrl('/psychology/clientquestion/countByAnswer/0'),
+          method: 'get'
+        }).then((data) => {
+          if (data && data.data.code === 0) {
+            this.answer0Cnt = data.data.cnt
+            this.$http({
+              url: this.$http.adornUrl('/psychology/clientquestion/countByAnswer/1'),
+              method: 'get'
+            }).then((data) => {
+              if (data && data.data.code === 0) {
+                this.answer1Cnt = data.data.cnt
+                this.$http({
+                  url: this.$http.adornUrl('/psychology/clientquestion/countByAnswer/2'),
+                  method: 'get'
+                }).then((data) => {
+                  if (data && data.data.code === 0) {
+                    this.answer2Cnt = data.data.cnt
+                    this.$http({
+                      url: this.$http.adornUrl('/psychology/clientquestion/countByAnswer/3'),
+                      method: 'get'
+                    }).then((data) => {
+                      if (data && data.data.code === 0) {
+                        this.answer3Cnt = data.data.cnt
+                        this.initChartPie()
+                      }
+                    })
+                  }
+                })
+              }
+            })
+          }
+        })
+
+
+
+      },
       // 柱状图
       initChartBar () {
         var option = {
@@ -158,7 +203,7 @@
         var option = {
           backgroundColor: '#2c343c',
           title: {
-            text: '个人心理疾病',
+            text: '用户问卷数据分析',
             left: 'center',
             top: 20,
             textStyle: {
@@ -179,15 +224,15 @@
           },
           series: [
             {
-              name: '疾病类型',
+              name: '类型',
               type: 'pie',
               radius: '55%',
               center: ['50%', '50%'],
               data: [
-                { value: 335, name: '忧郁症' },
-                { value: 310, name: '强迫症' },
-                { value: 274, name: '社交恐惧症' },
-                { value: 200, name: '其他' }
+                { value: this.answer0Cnt, name: '非常消极' },
+                { value: this.answer1Cnt, name: '比较消极' },
+                { value: this.answer2Cnt, name: '比较积极' },
+                { value: this.answer3Cnt, name: '非常积极' }
               ].sort(function (a, b) { return a.value - b.value }),
               roseType: 'radius',
               label: {
