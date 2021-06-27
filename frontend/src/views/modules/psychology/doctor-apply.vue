@@ -34,7 +34,6 @@
       },
       // 表单提交
       dataFormSubmit () {
-        let that = this
         this.$http({
           url: this.$http.adornUrl('/psychology/archive/save'),
           method: 'post',
