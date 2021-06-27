@@ -34,6 +34,7 @@
       },
       // 表单提交
       dataFormSubmit () {
+        let that = this
         this.$http({
           url: this.$http.adornUrl('/psychology/archive/save'),
           method: 'post',
@@ -45,14 +46,14 @@
           // params: this.$http.adornParams()
         }).then((data) => {
           console.log('申请返回的数据', data)
-        }).then(({data}) => {
-          if (data && data.code === 0) {
+          console.log('data.data.code', data.data.code)
+          if (data && data.data.code === 0) {
+            this.visible = false
             this.$message({
               message: '操作成功',
               type: 'success',
               duration: 1500,
               onClose: () => {
-                this.visible = false
                 this.$emit('refreshDataList')
               }
             })
