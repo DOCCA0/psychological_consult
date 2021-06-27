@@ -6,9 +6,7 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
-      </el-form-item>
+          </el-form-item>
     </el-form>
 <!--    表格-->
     <el-table
@@ -89,19 +87,6 @@
           <el-tag v-else size="small">正常</el-tag>
         </template>
       </el-table-column>
-<!--      <el-table-column-->
-<!--        prop="roleIdList"-->
-<!--        header-align="center"-->
-<!--        align="center"-->
-<!--        label="角色">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--        prop="createTime"-->
-<!--        header-align="center"-->
-<!--        align="center"-->
-<!--        width="180"-->
-<!--        label="创建时间">-->
-<!--      </el-table-column>-->
       <el-table-column
         fixed="right"
         header-align="center"
@@ -109,7 +94,7 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:user:save')" type="primary" @click="applyHandle(scope.row.doctorId)">申请</el-button>
+          <el-button v-if="isAuth('psychology:client')" type="primary" @click="applyHandle(scope.row.doctorId)">申请</el-button>
           <!--<el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>-->
           <!--<el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>-->
         </template>
