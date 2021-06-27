@@ -1,14 +1,14 @@
 <template>
   <div class="mod-user">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
-      <el-form-item>
-        <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <!--<el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>-->
-        <!--<el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>-->
-      </el-form-item>
+<!--      <el-form-item>-->
+<!--        <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>-->
+<!--      </el-form-item>-->
+<!--      <el-form-item>-->
+<!--        <el-button @click="getDataList()">查询</el-button>-->
+<!--        &lt;!&ndash;<el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>&ndash;&gt;-->
+<!--        &lt;!&ndash;<el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>&ndash;&gt;-->
+<!--      </el-form-item>-->
     </el-form>
     <!--    表格-->
     <el-table
@@ -17,12 +17,12 @@
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
       style="width: 100%;">
-      <el-table-column
-        type="selection"
-        header-align="center"
-        align="center"
-        width="50">
-      </el-table-column>
+<!--      <el-table-column-->
+<!--        type="selection"-->
+<!--        header-align="center"-->
+<!--        align="center"-->
+<!--        width="50">-->
+<!--      </el-table-column>-->
       <el-table-column
         prop="userId"
         header-align="center"
@@ -97,7 +97,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="infoAddOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+<!--          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -193,37 +193,37 @@
         this.$nextTick(() => {
           this.$refs.apply.init(doctorId)
         })
-      },
-      // 删除
-      deleteHandle (id) {
-        var userIds = id ? [id] : this.dataListSelections.map(item => {
-          return item.userId
-        })
-        this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$http({
-            url: this.$http.adornUrl('/sys/user/delete'),
-            method: 'post',
-            data: this.$http.adornData(userIds, false)
-          }).then(({data}) => {
-            if (data && data.code === 0) {
-              this.$message({
-                message: '操作成功',
-                type: 'success',
-                duration: 1500,
-                onClose: () => {
-                  this.getDataList()
-                }
-              })
-            } else {
-              this.$message.error(data.msg)
-            }
-          })
-        }).catch(() => {})
       }
+      // 删除
+      // deleteHandle (id) {
+      //   var userIds = id ? [id] : this.dataListSelections.map(item => {
+      //     return item.userId
+      //   })
+      //   this.$confirm(`确定对[id${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
+      //     confirmButtonText: '确定',
+      //     cancelButtonText: '取消',
+      //     type: 'warning'
+      //   }).then(() => {
+      //     this.$http({
+      //       url: this.$http.adornUrl('/sys/user/delete'),
+      //       method: 'post',
+      //       data: this.$http.adornData(userIds, false)
+      //     }).then(({data}) => {
+      //       if (data && data.code === 0) {
+      //         this.$message({
+      //           message: '操作成功',
+      //           type: 'success',
+      //           duration: 1500,
+      //           onClose: () => {
+      //             this.getDataList()
+      //           }
+      //         })
+      //       } else {
+      //         this.$message.error(data.msg)
+      //       }
+      //     })
+      //   }).catch(() => {})
+      // }
     }
   }
 </script>

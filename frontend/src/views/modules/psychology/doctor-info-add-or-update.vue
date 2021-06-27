@@ -4,28 +4,26 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="姓名" prop="userName">
-        <el-input v-model="dataForm.userName" placeholder="登录帐号"></el-input>
+      <el-form-item label="姓名" prop="name">
+        <el-input v-model="dataForm.name" placeholder="姓名"></el-input>
       </el-form-item>
-      <el-form-item label="性别" prop="password" :class="{ 'is-required': !dataForm.id }">
-        <el-input v-model="dataForm.password" type="password" placeholder="密码"></el-input>
+      <el-form-item label="性别" prop="sex" :class="{ 'is-required': !dataForm.id }">
+        <el-input v-model="dataForm.sex"  placeholder="男/女"></el-input>
       </el-form-item>
-      <el-form-item label="年龄" prop="email">
-        <el-input v-model="dataForm.email" placeholder="邮箱"></el-input>
+      <el-form-item label="年龄" prop="age">
+        <el-input v-model="dataForm.age" placeholder="年龄"></el-input>
       </el-form-item>
-      <el-form-item label="级别" prop="mobile">
-        <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
+      <el-form-item label="级别" prop="level">
+        <el-input v-model="dataForm.level" placeholder="等级"></el-input>
       </el-form-item>
-      <el-form-item label="擅长领域" size="mini" prop="roleIdList">
-        <el-radio-group v-model="dataForm.roleIdList">
-          <el-radio v-for="role in roleList" :key="role.roleId" :label="role.roleId">{{ role.roleName }}</el-radio>
-        </el-radio-group>
+      <el-form-item label="擅长领域" size="mini" prop="skill">
+        <el-input v-model="dataForm.skill" placeholder="擅长领域"></el-input>
       </el-form-item>
-      <el-form-item label="工作地点" prop="mobile">
-        <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
+      <el-form-item label="工作地点" prop="place">
+        <el-input v-model="dataForm.place" placeholder="工作地点"></el-input>
       </el-form-item>
-      <el-form-item label="工作时间" prop="mobile">
-        <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
+      <el-form-item label="工作时间" prop="workTime">
+        <el-input v-model="dataForm.workTime" placeholder="工作时间"></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -36,123 +34,70 @@
 </template>
 
 <script>
-  import { isEmail, isMobile } from '@/utils/validate'
+  // import { isEmail, isMobile } from '@/utils/validate'
   export default {
     data () {
-      var validatePassword = (rule, value, callback) => {
-        if (!this.dataForm.id && !/\S/.test(value)) {
-          callback(new Error('密码不能为空'))
-        } else {
-          callback()
-        }
-      }
-      var validateComfirmPassword = (rule, value, callback) => {
-        if (!this.dataForm.id && !/\S/.test(value)) {
-          callback(new Error('确认密码不能为空'))
-        } else if (this.dataForm.password !== value) {
-          callback(new Error('确认密码与密码输入不一致'))
-        } else {
-          callback()
-        }
-      }
-      var validateEmail = (rule, value, callback) => {
-        if (!isEmail(value)) {
-          callback(new Error('邮箱格式错误'))
-        } else {
-          callback()
-        }
-      }
-      var validateMobile = (rule, value, callback) => {
-        if (!isMobile(value)) {
-          callback(new Error('手机号格式错误'))
-        } else {
-          callback()
-        }
-      }
       return {
         visible: false,
-        roleList: [],
         dataForm: {
-          id: 0,
-          userName: '',
-          password: '',
-          comfirmPassword: '',
-          salt: '',
-          email: '',
-          mobile: '',
-          roleIdList: [],
-          status: 1
-        },
-        dataRule: {
-          userName: [
-            { required: true, message: '用户名不能为空', trigger: 'blur' }
-          ],
-          password: [
-            { validator: validatePassword, trigger: 'blur' }
-          ],
-          comfirmPassword: [
-            { validator: validateComfirmPassword, trigger: 'blur' }
-          ],
-          email: [
-            { required: true, message: '邮箱不能为空', trigger: 'blur' },
-            { validator: validateEmail, trigger: 'blur' }
-          ],
-          mobile: [
-            { required: true, message: '手机号不能为空', trigger: 'blur' },
-            { validator: validateMobile, trigger: 'blur' }
-          ]
+
+          userId: '',
+          doctorId: '',
+          name: '',
+          sex: '',
+          age: '',
+          level: '',
+          skill: '',
+          place: '',
+          workTime: '',
+          avatar: ''
         }
       }
     },
     methods: {
       init (id) {
-        this.dataForm.id = id || 0
-        this.$http({
-          url: this.$http.adornUrl('/sys/role/select'),
-          method: 'get',
-          params: this.$http.adornParams()
-        }).then(({data}) => {
-          this.roleList = data && data.code === 0 ? data.list : []
-        }).then(() => {
+          this.dataForm.id = id || 0
           this.visible = true
           this.$nextTick(() => {
-            this.$refs['dataForm'].resetFields()
-          })
-        }).then(() => {
-          if (this.dataForm.id) {
-            this.$http({
-              url: this.$http.adornUrl(`/sys/user/info/${this.dataForm.id}`),
-              method: 'get',
-              params: this.$http.adornParams()
-            }).then(({data}) => {
-              if (data && data.code === 0) {
-                this.dataForm.userName = data.user.username
-                this.dataForm.salt = data.user.salt
-                this.dataForm.email = data.user.email
-                this.dataForm.mobile = data.user.mobile
-                this.dataForm.roleIdList = data.user.roleIdList
-                this.dataForm.status = data.user.status
-              }
-            })
-          }
-        })
+            this.$refs['dataForm'].resetFields()})
+            if (this.dataForm.id) {
+              this.$http({
+                url: this.$http.adornUrl(`/psychology/doctor/infoByToken`),
+                method: 'get',
+                params: this.$http.adornParams()
+              }).then(({data}) => {
+                if (data && data.code === 0) {
+                  console.log('data is', data.page.list[0])
+                  this.dataForm.doctorId = data.page.list[0].doctorId
+                  this.dataForm.userId = data.page.list[0].userId
+                  this.dataForm.name = data.page.list[0].name
+                  this.dataForm.sex = data.page.list[0].sex
+                  this.dataForm.age = data.page.list[0].age
+                  this.dataForm.level = data.page.list[0].level
+                  this.dataForm.skill = data.page.list[0].skill
+                  this.dataForm.place = data.page.list[0].place
+                  this.dataForm.workTime = data.page.list[0].workTime
+                  this.dataForm.avatar = data.page.list[0].avatar
+                }
+              })
+            }
       },
       // 表单提交
       dataFormSubmit () {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/sys/user/${!this.dataForm.id ? 'save' : 'update'}`),
+              url: this.$http.adornUrl(`/psychology/doctor/update`),
               method: 'post',
               data: this.$http.adornData({
-                'userId': this.dataForm.id || undefined,
-                'username': this.dataForm.userName,
-                'password': this.dataForm.password,
-                'salt': this.dataForm.salt,
-                'email': this.dataForm.email,
-                'mobile': this.dataForm.mobile,
-                'status': this.dataForm.status,
-                'roleIdList': this.dataForm.roleIdList
+                'avatar': this.dataForm.avatar,
+                'doctorId': this.dataForm.doctorId,
+                'userId': this.dataForm.userId,
+                'name': this.dataForm.name,
+                'sex': this.dataForm.sex,
+                'age': this.dataForm.age,
+                'level': this.dataForm.level,
+                'skill': this.dataForm.skill,
+                'place': this.dataForm.place,
+                'workTime': this.dataForm.workTime
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
@@ -170,8 +115,6 @@
               }
             })
           }
-        })
-      }
-    }
+        }
   }
 </script>
