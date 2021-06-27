@@ -1,5 +1,6 @@
 package com.shangcheng.psychology.modules.psychology.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -24,6 +25,15 @@ public class ClientQuestionServiceImpl extends ServiceImpl<ClientQuestionDao, Cl
         );
 
         return new PageUtils(page);
+    }
+
+    @Override
+    public int getAnswerCount(int answer) {
+        int cnt = this.count(
+                new QueryWrapper<ClientQuestionEntity>().eq("his_answer", answer)
+        );
+        return cnt;
+
     }
 
 }

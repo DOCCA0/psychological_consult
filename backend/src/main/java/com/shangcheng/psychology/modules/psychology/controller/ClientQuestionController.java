@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.shangcheng.psychology.modules.sys.controller.AbstractController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,9 +50,18 @@ public class ClientQuestionController extends AbstractController {
      */
     @RequestMapping("/info/{clientQuestionId}")
     public R info(@PathVariable("clientQuestionId") Long clientQuestionId){
-		ClientQuestionEntity clientQuestion = clientQuestionService.getById(clientQuestionId);
+        ClientQuestionEntity clientQuestion = clientQuestionService.getById(clientQuestionId);
 
         return R.ok().put("clientQuestion", clientQuestion);
+    }
+
+    /**
+     * 通过answer获得count信息
+     */
+    @RequestMapping("/countByAnswer/{answer}")
+    public R countByAnswer(@PathVariable("answer") Integer answer){
+        int cnt = clientQuestionService.getAnswerCount(answer);
+        return R.ok().put("cnt", cnt);
     }
 
     /**

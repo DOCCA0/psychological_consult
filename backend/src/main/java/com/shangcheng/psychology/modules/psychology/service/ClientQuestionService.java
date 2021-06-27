@@ -16,5 +16,6 @@ import java.util.Map;
 public interface ClientQuestionService extends IService<ClientQuestionEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+     int getAnswerCount(int answer);
 }
 
