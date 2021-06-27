@@ -77,7 +77,7 @@
         var option = {
           backgroundColor: '#2c343c',
           title: {
-            text: '用户问卷数据分析',
+            text: '患者问卷数据分析',
             left: 'center',
             top: 20,
             textStyle: {
