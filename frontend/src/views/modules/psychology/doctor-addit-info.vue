@@ -10,7 +10,7 @@
         <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
-<!--    表格-->
+    <!--    表格-->
     <el-table
       :data="dataList"
       border
@@ -47,7 +47,7 @@
         header-align="center"
         align="center"
         label="性别">
-      <template slot-scope="scope">{{ scope.row.sex === 0 ? '男' : '女' }}</template>
+        <template slot-scope="scope">{{ scope.row.sex === 0 ? '男' : '女' }}</template>
       </el-table-column>
       <el-table-column
         prop="age"
@@ -89,19 +89,19 @@
           <el-tag v-else size="small">正常</el-tag>
         </template>
       </el-table-column>
-<!--      <el-table-column-->
-<!--        prop="roleIdList"-->
-<!--        header-align="center"-->
-<!--        align="center"-->
-<!--        label="角色">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--        prop="createTime"-->
-<!--        header-align="center"-->
-<!--        align="center"-->
-<!--        width="180"-->
-<!--        label="创建时间">-->
-<!--      </el-table-column>-->
+      <!--      <el-table-column-->
+      <!--        prop="roleIdList"-->
+      <!--        header-align="center"-->
+      <!--        align="center"-->
+      <!--        label="角色">-->
+      <!--      </el-table-column>-->
+      <!--      <el-table-column-->
+      <!--        prop="createTime"-->
+      <!--        header-align="center"-->
+      <!--        align="center"-->
+      <!--        width="180"-->
+      <!--        label="创建时间">-->
+      <!--      </el-table-column>-->
       <el-table-column
         fixed="right"
         header-align="center"

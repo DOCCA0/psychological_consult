@@ -36,4 +36,16 @@ public class ClientQuestionServiceImpl extends ServiceImpl<ClientQuestionDao, Cl
 
     }
 
+    @Override
+    public double getAvgScore(Long clientId) {
+        //求某人的成绩和。
+        QueryWrapper<ClientQuestionEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("AVG(score) as avg")
+                .eq("client_id", clientId);
+        Map<String, Object> map = this.getMap(queryWrapper);
+        double avg = Double.parseDouble( map.get("avg").toString());
+        return avg;
+    }
+
+
 }
