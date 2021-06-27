@@ -42,7 +42,6 @@
             'clientDescription': this.dataForm.clientDescription,
             'status': 0
           })
-          // params: this.$http.adornParams()
         }).then((data) => {
           console.log('申请返回的数据', data)
           console.log('data.data.code', data.data.code)
