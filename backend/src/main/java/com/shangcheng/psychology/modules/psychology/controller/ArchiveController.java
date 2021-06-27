@@ -48,24 +48,42 @@ public class ArchiveController extends AbstractController {
     }
 
     /**
-     * 通过doctorid获取archive
+     * 通过doctorid或者clientID获取archive
      */
     @RequestMapping("/info")
-    public R infoByDocId(@RequestParam Map<String, Object> params){
-        PageUtils page = archiveService.queryPageByDocId(params);
-
+    public R infoById(@RequestParam Map<String, Object> params){
+        PageUtils page = archiveService.queryPageById(params);
         return R.ok().put("page", page);
     }
+
+
 
     /**
      * 通过上下文获取archive
      */
     @RequestMapping("/infoByToken")
     public R infoByToken(@RequestParam Map<String, Object> params){
-        Long doctorId = getDoctorId();
-        params.put("doctorId",doctorId);
-        return infoByDocId(params);
+        Long doctorId=null;
+        Long clientId=null;
+        try {
+            doctorId = getDoctorId();
+        }catch (Exception e){}
+        try {
+            clientId = getClientId();
+        }catch (Exception e){}
+
+        if (doctorId!=null) {
+            params.put("doctorId", doctorId);
+        }else{
+            System.out.println("clietn id shi");
+            System.out.println(clientId);
+            params.put("clientId", clientId);
+        }
+        return infoById(params);
     }
+
+
+
 
     /**
      * archiveId获取archive

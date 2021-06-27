@@ -17,6 +17,6 @@ public interface ArchiveService extends IService<ArchiveEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
 
-    PageUtils queryPageByDocId(Map<String, Object> params);
+    PageUtils queryPageById(Map<String, Object> params);
 }
 
