@@ -5,13 +5,7 @@
       type="warning"
       :closable="false">
     </el-alert>
-
     <el-row :gutter="20">
-      <el-col :span="24">
-        <el-card>
-          <div id="J_chartBarBox" class="chart-box"></div>
-        </el-card>
-      </el-col>
       <el-col :span="24">
         <el-card>
           <div id="J_chartPieBox" class="chart-box"></div>
@@ -26,7 +20,6 @@
   export default {
     data () {
       return {
-        chartBar: null,
         chartPie: null,
         answer0Cnt: 0,
         answer1Cnt: 0,
@@ -34,15 +27,8 @@
         answer3Cnt: 0
       }
     },
-    mounted () {
-      this.initChartBar()
-      // this.initChartPie()
-    },
     activated () {
       // 由于给echart添加了resize事件, 在组件激活时需要重新resize绘画一次, 否则出现空白bug
-      if (this.chartBar) {
-        this.chartBar.resize()
-      }
       if (this.chartPie) {
         this.chartPie.resize()
       }
@@ -85,6 +71,7 @@
             })
           }
         })
+<<<<<<< HEAD
       },
       // 柱状图
       initChartBar () {
@@ -194,13 +181,15 @@
         window.addEventListener('resize', () => {
           this.chartBar.resize()
         })
+=======
+>>>>>>> e605db80d7a93b0a2aa56db005f1fc41e5a4eb78
       },
       // 饼状图
       initChartPie () {
         var option = {
           backgroundColor: '#2c343c',
           title: {
-            text: '用户问卷数据分析',
+            text: '患者问卷数据分析',
             left: 'center',
             top: 20,
             textStyle: {
