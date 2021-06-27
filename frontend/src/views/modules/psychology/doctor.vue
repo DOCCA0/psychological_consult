@@ -204,7 +204,6 @@
       },
       // 申请
       applyHandle (doctorId) {
-        console.log('doctorId是', doctorId)
         this.applyVisible = true
         this.$nextTick(() => {
           this.$refs.apply.init(doctorId)
