@@ -67,9 +67,22 @@
     },
     activated () {
       this.getDataList()
-      this.getValue()
     },
     methods: {
+      // 当前页
+      currentChangeHandle (val) {
+        this.pageIndex = val
+        this.getDataList()
+      },
+      // 每页数
+      sizeChangeHandle (val) {
+        this.pageSize = val
+        this.pageIndex = 1
+        this.getDataList()
+      },
+      refresh () {
+        this.$emit('refreshDataList')
+      },
       // 提交确认
       submit () {
         this.$confirm('确定要提交吗?', '提示', {
@@ -94,21 +107,18 @@
             if (data && data.code === 0) {
               this.$message({
                 message: '提交成功',
-                type: 'success',
-                duration: 1500,
-                onClose: () => {
-                  this.visible = false
-                  this.$emit('refreshDataList')
-                }
+                type: 'success'
               })
+              this.form = []
+              console.log(form)
             } else {
-              this.$message.error('未做完题目')
+              this.$message.error('还有题目没做哦')
             }
           })
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消提交'
+            message: '取消提交'
           })
         })
       },
