@@ -114,6 +114,7 @@
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update  ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
     <apply ref="apply" @refreshDataList="getDataList"></apply>
+    <info-add-or-update ref="infoAddOrUpdate" @refreshDataList="getDataList"></info-add-or-update>
   </div>
 </template>
 

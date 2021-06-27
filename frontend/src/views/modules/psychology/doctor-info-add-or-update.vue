@@ -10,9 +10,6 @@
       <el-form-item label="性别" prop="password" :class="{ 'is-required': !dataForm.id }">
         <el-input v-model="dataForm.password" type="password" placeholder="密码"></el-input>
       </el-form-item>
-      <!--<el-form-item label="确认密码" prop="comfirmPassword" :class="{ 'is-required': !dataForm.id }">-->
-        <!--<el-input v-model="dataForm.comfirmPassword" type="password" placeholder="确认密码"></el-input>-->
-      <!--</el-form-item>-->
       <el-form-item label="年龄" prop="email">
         <el-input v-model="dataForm.email" placeholder="邮箱"></el-input>
       </el-form-item>
@@ -30,12 +27,6 @@
       <el-form-item label="工作时间" prop="mobile">
         <el-input v-model="dataForm.mobile" placeholder="手机号"></el-input>
       </el-form-item>
-      <!--<el-form-item label="状态" size="mini" prop="status">-->
-        <!--<el-radio-group v-model="dataForm.status">-->
-          <!--<el-radio :label="0">禁用</el-radio>-->
-          <!--<el-radio :label="1">正常</el-radio>-->
-        <!--</el-radio-group>-->
-      <!--</el-form-item>-->
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
