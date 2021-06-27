@@ -1,7 +1,7 @@
 <template>
   <div class="mod-demo-echarts">
     <el-alert
-      title="提示："
+      title="提示：该图表依据患者提交的心理测试问卷结果实时分析而成。"
       type="warning"
       :closable="false">
     </el-alert>
