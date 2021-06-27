@@ -1,8 +1,6 @@
 package com.shangcheng.psychology.modules.psychology.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
@@ -53,6 +51,30 @@ public class ClientQuestionController extends AbstractController {
         ClientQuestionEntity clientQuestion = clientQuestionService.getById(clientQuestionId);
 
         return R.ok().put("clientQuestion", clientQuestion);
+    }
+
+    /**
+     * 通过clientId查平均分信息
+     */
+    @RequestMapping("/avg/{clientId}")
+    public R getAvgScore(@PathVariable("clientId") Long clientId){
+        Double avg = clientQuestionService.getAvgScore(clientId);
+        return R.ok().put("avg", avg);
+    }
+
+    /**
+     * 通过clientIds查平均分信息
+     */
+    @RequestMapping("/avgs")
+    public R getAvgScore(@RequestBody List<Long> clientIds){
+        List<Map<Long,Double> > avgs=new ArrayList<Map<Long,Double> >();
+        clientIds.stream().forEach(x->{
+            Double avg = clientQuestionService.getAvgScore(x);
+            HashMap<Long, Double> m = new HashMap<>();
+            m.put(x,avg);
+            avgs.add(m);
+        });
+        return R.ok().put("avgs", avgs);
     }
 
     /**
