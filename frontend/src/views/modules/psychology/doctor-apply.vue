@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title= '填写申请'
+    :title= '填写预约'
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
