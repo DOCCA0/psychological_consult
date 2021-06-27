@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title= '填写申请'
+    :title= '填写预约'
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
@@ -42,17 +42,16 @@
             'clientDescription': this.dataForm.clientDescription,
             'status': 0
           })
-          // params: this.$http.adornParams()
         }).then((data) => {
           console.log('申请返回的数据', data)
-        }).then(({data}) => {
-          if (data && data.code === 0) {
+          console.log('data.data.code', data.data.code)
+          if (data && data.data.code === 0) {
+            this.visible = false
             this.$message({
               message: '操作成功',
               type: 'success',
               duration: 1500,
               onClose: () => {
-                this.visible = false
                 this.$emit('refreshDataList')
               }
             })

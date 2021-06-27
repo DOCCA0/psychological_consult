@@ -109,7 +109,7 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:user:save')" type="primary" @click="applyHandle(dataList.doctorId)">申请</el-button>
+          <el-button v-if="isAuth('sys:user:save')" type="primary" @click="applyHandle(scope.row.doctorId)">申请</el-button>
           <!--<el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>-->
           <!--<el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>-->
         </template>
@@ -204,6 +204,7 @@
       },
       // 申请
       applyHandle (doctorId) {
+        console.log('doctorId是', doctorId)
         this.applyVisible = true
         this.$nextTick(() => {
           this.$refs.apply.init(doctorId)
