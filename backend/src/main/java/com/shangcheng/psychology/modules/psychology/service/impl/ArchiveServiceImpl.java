@@ -27,11 +27,20 @@ public class ArchiveServiceImpl extends ServiceImpl<ArchiveDao, ArchiveEntity> i
     }
 
     @Override
-    public PageUtils queryPageByDocId(Map<String, Object> params) {
-        IPage<ArchiveEntity> page = this.page(
-                new Query<ArchiveEntity>().getPage(params),
-                new QueryWrapper<ArchiveEntity>().eq("doctor_id",params.get("doctorId"))
-        );
+    public PageUtils queryPageById(Map<String, Object> params) {
+        IPage<ArchiveEntity> page;
+        if (!params.get("doctorId").equals(null)){
+             page = this.page(
+                    new Query<ArchiveEntity>().getPage(params),
+                    new QueryWrapper<ArchiveEntity>().eq("doctor_id",params.get("doctorId"))
+            );
+        }else{
+            page = this.page(
+                    new Query<ArchiveEntity>().getPage(params),
+                    new QueryWrapper<ArchiveEntity>().eq("client_id",params.get("clientId"))
+            );
+        }
+
 
         return new PageUtils(page);
     }

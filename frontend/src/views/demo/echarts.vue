@@ -47,11 +47,11 @@
         this.chartPie.resize()
       }
     },
-    created() {
+    created () {
       this.getAnswerCount()
     },
     methods: {
-      getAnswerCount() {
+      getAnswerCount () {
         this.$http({
           url: this.$http.adornUrl('/psychology/clientquestion/countByAnswer/0'),
           method: 'get'
@@ -85,9 +85,6 @@
             })
           }
         })
-
-
-
       },
       // 柱状图
       initChartBar () {
