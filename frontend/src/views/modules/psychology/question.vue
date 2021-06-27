@@ -110,7 +110,8 @@
                 type: 'success'
               })
               this.form = []
-              console.log(form)
+              window.location.href = 'index.html'
+              console.log(this.form)
             } else {
               this.$message.error('还有题目没做哦')
             }
