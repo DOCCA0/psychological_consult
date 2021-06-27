@@ -31,9 +31,11 @@
         <template slot-scope="scope" >
         <el-rate
           v-model="scoreMap[scope.$index]"
+          :icon-classes="iconClasses"
           disabled
           show-score
-          text-color="#ff9900">
+          :colors="{2:'#00ff99', 3:'#ffa621', 5:'#ff2121'}"
+          text-color="#ff2121">
         </el-rate>
         </template>
       </el-table-column>
