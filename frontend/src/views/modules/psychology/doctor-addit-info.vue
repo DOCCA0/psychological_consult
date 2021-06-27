@@ -6,11 +6,11 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <!--<el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>-->
+        <!--<el-button v-if="isAuth('sys:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>-->
       </el-form-item>
     </el-form>
-<!--    表格-->
+    <!--    表格-->
     <el-table
       :data="dataList"
       border
@@ -31,22 +31,53 @@
         label="ID">
       </el-table-column>
       <el-table-column
-        prop="username"
+        prop="doctorId"
         header-align="center"
         align="center"
-        label="用户名">
+        label="医生编号">
       </el-table-column>
       <el-table-column
-        prop="email"
+        prop="name"
         header-align="center"
         align="center"
-        label="邮箱">
+        label="姓名">
       </el-table-column>
       <el-table-column
-        prop="mobile"
+        prop="sex"
         header-align="center"
         align="center"
-        label="手机号">
+        label="性别">
+        <template slot-scope="scope">{{ scope.row.sex === 0 ? '男' : '女' }}</template>
+      </el-table-column>
+      <el-table-column
+        prop="age"
+        header-align="center"
+        align="center"
+        label="年龄">
+      </el-table-column>
+      <el-table-column
+        prop="level"
+        header-align="center"
+        align="center"
+        label="级别">
+      </el-table-column>
+      <el-table-column
+        prop="skill"
+        header-align="center"
+        align="center"
+        label="擅长领域">
+      </el-table-column>
+      <el-table-column
+        prop="place"
+        header-align="center"
+        align="center"
+        label="工作地点">
+      </el-table-column>
+      <el-table-column
+        prop="workTime"
+        header-align="center"
+        align="center"
+        label="工作时间">
       </el-table-column>
       <el-table-column
         prop="status"
@@ -59,20 +90,13 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="createTime"
-        header-align="center"
-        align="center"
-        width="180"
-        label="创建时间">
-      </el-table-column>
-      <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
+          <el-button type="text" size="small" @click="infoAddOrUpdateHandle(scope.row.userId)">修改</el-button>
           <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
         </template>
       </el-table-column>
@@ -88,12 +112,16 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
-    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+    <add-or-update  ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+    <apply ref="apply" @refreshDataList="getDataList"></apply>
+    <info-add-or-update ref="infoAddOrUpdate" @refreshDataList="getDataList"></info-add-or-update>
   </div>
 </template>
 
 <script>
-  import AddOrUpdate from './user-add-or-update'
+  import AddOrUpdate from './doctor-add-or-update'
+  import Apply from './doctor-apply'
+  import InfoAddOrUpdate from './doctor-info-add-or-update'
   export default {
     data () {
       return {
@@ -106,11 +134,14 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateVisible: false
+        infoAddOrUpdateVisible: false,
+        applyVisible: false
       }
     },
     components: {
-      AddOrUpdate
+      Apply,
+      AddOrUpdate,
+      InfoAddOrUpdate
     },
     activated () {
       this.getDataList()
@@ -120,13 +151,8 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/sys/user/list'),
-          method: 'get',
-          params: this.$http.adornParams({
-            'page': this.pageIndex,
-            'limit': this.pageSize,
-            'username': this.dataForm.userName
-          })
+          url: this.$http.adornUrl('/psychology/doctor/infoByToken'),
+          method: 'get'
         }).then(({data}) => {
           if (data && data.code === 0) {
             console.log(data)
@@ -155,10 +181,17 @@
         this.dataListSelections = val
       },
       // 新增 / 修改
-      addOrUpdateHandle (id) {
-        this.addOrUpdateVisible = true
+      infoAddOrUpdateHandle (id) {
+        this.infoAddOrUpdateVisible = true
         this.$nextTick(() => {
-          this.$refs.addOrUpdate.init(id)
+          this.$refs.infoAddOrUpdate.init(id)
+        })
+      },
+      // 申请
+      applyHandle (doctorId) {
+        this.applyVisible = true
+        this.$nextTick(() => {
+          this.$refs.apply.init(doctorId)
         })
       },
       // 删除
