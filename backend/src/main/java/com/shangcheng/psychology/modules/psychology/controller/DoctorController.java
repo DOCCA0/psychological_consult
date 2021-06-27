@@ -37,7 +37,6 @@ public class DoctorController extends AbstractController {
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = doctorService.queryPage(params);
-
         return R.ok().put("page", page);
     }
 
@@ -51,6 +50,17 @@ public class DoctorController extends AbstractController {
 
         return R.ok().put("page", doctor);
     }
+
+    /**
+     * 通过name获得like信息
+     */
+    @RequestMapping("/infoByName")
+    public R info(@RequestBody Map<String, Object> params){
+        PageUtils pageUtils = doctorService.queryPageByName(params);
+
+        return R.ok().put("page", pageUtils);
+    }
+
 
     /**
      * 根据token获取doctor信息

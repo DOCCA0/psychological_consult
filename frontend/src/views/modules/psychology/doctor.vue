@@ -5,7 +5,7 @@
         <el-input v-model="dataForm.userName" placeholder="用户名" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
+        <el-button @click="getnameList()">查询</el-button>
           </el-form-item>
     </el-form>
 <!--    表格-->
@@ -15,12 +15,6 @@
       v-loading="dataListLoading"
       @selection-change="selectionChangeHandle"
       style="width: 100%;">
-      <el-table-column
-        type="selection"
-        header-align="center"
-        align="center"
-        width="50">
-      </el-table-column>
       <el-table-column
         prop="userId"
         header-align="center"
@@ -153,6 +147,28 @@
             'page': this.pageIndex,
             'limit': this.pageSize
           })
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            console.log(data)
+            this.dataList = data.page.list
+            this.totalPage = data.page.totalCount
+          } else {
+            this.dataList = []
+            this.totalPage = 0
+          }
+          this.dataListLoading = false
+        })
+      },
+      getnameList () {
+        this.dataListLoading = true
+        this.$http({
+          url: this.$http.adornUrl('/psychology/doctor/infoByName'),
+          method: 'post',
+          data: {
+            'page': this.pageIndex.toString(),
+            'limit': this.pageSize.toString(),
+            'name': this.dataForm.userName
+          }
         }).then(({data}) => {
           if (data && data.code === 0) {
             console.log(data)
