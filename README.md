@@ -8,3 +8,9 @@
 - 后端springboot+mybatisPlus+shiro
 
 本项目使用人人开源进行的二次开发
+
+![](demo\1.png)
+
+![2](demo\2.png)
+
+![3](demo\3.png)
